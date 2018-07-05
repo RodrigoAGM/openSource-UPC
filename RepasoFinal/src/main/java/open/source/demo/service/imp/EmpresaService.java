@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmpresaService implements i_EmpresaService {
@@ -22,16 +23,39 @@ public class EmpresaService implements i_EmpresaService {
 
     @Override
     public boolean agregar(Empresa obj) {
-        return false;
+
+        Empresa empresa = repository.save(obj);
+
+        if(empresa == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override
     public boolean eliminar(int id) {
-        return false;
+        boolean flag = false;
+
+        try {
+            repository.deleteById(id);
+            flag = true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return flag;
     }
 
     @Override
-    public Empresa buscarPorID(int id) {
-        return null;
+    public Optional<Empresa> buscarPorID(int id) {
+
+        Optional<Empresa> objRubro = null;
+        try {
+            objRubro = repository.findById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return objRubro;
     }
 }

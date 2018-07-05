@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SoftwareEmpresa implements i_SoftwareService {
@@ -21,16 +22,39 @@ public class SoftwareEmpresa implements i_SoftwareService {
 
     @Override
     public boolean agregar(Software obj) {
-        return false;
+
+        Software software = repository.save(obj);
+
+        if(software == null){
+            return false;
+        }else{
+            return true;
+        }
     }
 
     @Override
     public boolean eliminar(int id) {
-        return false;
+        boolean flag = false;
+
+        try {
+            repository.deleteById(id);
+            flag = true;
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
+        return flag;
     }
 
     @Override
-    public Software buscarPorID(int id) {
-        return null;
+    public Optional<Software> buscarPorID(int id) {
+
+        Optional<Software> objRubro = null;
+        try {
+            objRubro = repository.findById(id);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return objRubro;
     }
 }
