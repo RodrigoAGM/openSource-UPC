@@ -13,6 +13,15 @@ public class Participante {
     private String nombre;
     private String sede;
     private String tiu;
+    private int puntaje;
+
+    public int getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(int puntaje) {
+        this.puntaje = puntaje;
+    }
 
     @OneToMany(mappedBy = "participante")
     private List<Resultado> resultados;
