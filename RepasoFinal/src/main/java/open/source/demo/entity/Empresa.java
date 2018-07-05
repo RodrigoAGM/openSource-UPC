@@ -14,6 +14,7 @@ public class Empresa {
     private String direccion;
     private String tipo;
 
+    @ManyToMany
     @JoinTable(name = "empresa_software",
             joinColumns = @JoinColumn(name = "empresa_id"),
             inverseJoinColumns = @JoinColumn(name = "software_id")
